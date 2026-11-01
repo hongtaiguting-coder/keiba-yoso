@@ -1,0 +1,548 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+<title>競馬予想テンプレート v1.2</title>
+<style>
+  :root{
+    --bg:#f6f7f9;
+    --card:#ffffff;
+    --text:#1f2937;
+    --muted:#6b7280;
+    --line:#d1d5db;
+    --accent:#111827;
+  }
+  *{box-sizing:border-box}
+  body{
+    margin:0;
+    background:var(--bg);
+    color:var(--text);
+    font-family:-apple-system,BlinkMacSystemFont,"Segoe UI","Noto Sans JP",sans-serif;
+  }
+  .wrap{
+    max-width:760px;
+    margin:0 auto;
+    padding:18px;
+  }
+  h1{
+    font-size:22px;
+    margin:4px 0 18px;
+  }
+  .card{
+    background:var(--card);
+    border:1px solid var(--line);
+    border-radius:14px;
+    padding:16px;
+    margin-bottom:14px;
+  }
+  h2{
+    font-size:16px;
+    margin:0 0 12px;
+  }
+  .grid{
+    display:grid;
+    grid-template-columns:repeat(2,minmax(0,1fr));
+    gap:12px;
+  }
+  label{
+    display:block;
+    font-size:12px;
+    color:var(--muted);
+    margin-bottom:5px;
+  }
+  input,select,textarea,button{
+    width:100%;
+    border:1px solid var(--line);
+    border-radius:10px;
+    padding:11px;
+    font-size:15px;
+    background:#fff;
+    color:var(--text);
+  }
+  textarea{
+    min-height:110px;
+    resize:vertical;
+  }
+  #grade.grade-g1{background:#2563eb;color:#fff;border-color:#1d4ed8;font-weight:800}
+  #grade.grade-g2{background:#dc2626;color:#fff;border-color:#b91c1c;font-weight:800}
+  #grade.grade-g3{background:#16a34a;color:#fff;border-color:#15803d;font-weight:800}
+  .horse-header{
+    display:grid;
+    grid-template-columns:68px 68px 1fr 38px;
+    gap:6px;
+    align-items:end;
+    margin:2px 0 6px;
+    padding:0 2px;
+    color:var(--muted);
+    font-size:12px;
+    font-weight:700;
+    text-align:center;
+  }
+  .horse-header .horse-name-head{text-align:left;padding-left:4px}
+  .horse-row{
+    display:grid;
+    grid-template-columns:78px 78px 1fr 44px;
+    gap:8px;
+    margin-bottom:10px;
+    align-items:center;
+  }
+  .horse-row .mark,
+  .horse-row .number,
+  .horse-row .name{
+    min-height:46px;
+    font-size:16px;
+  }
+  .number{
+    height:44px;
+    border-radius:10px;
+    text-align:center;
+    font-weight:800;
+    font-size:17px;
+    border:2px solid #9ca3af;
+    background:#e5e7eb;
+    color:#111827;
+    padding:6px;
+  }
+  .horse-row button{
+    padding:10px 4px;
+    background:#fff;
+    color:#b91c1c;
+  }
+  .add-btn,.save-btn{
+    margin-top:8px;
+    background:var(--accent);
+    color:#fff;
+    border:none;
+    font-weight:700;
+  }
+  .sub-btn{
+    margin-top:8px;
+    background:#fff;
+    font-weight:600;
+  }
+  .actions{
+    display:grid;
+    grid-template-columns:1fr 1fr;
+    gap:8px;
+  }
+  .hint{
+    color:var(--muted);
+    font-size:12px;
+    margin-bottom:10px;
+    line-height:1.5;
+  }
+  .waku-note{
+    margin-top:8px;
+    padding:10px;
+    background:#f9fafb;
+    border:1px solid var(--line);
+    border-radius:10px;
+    font-size:12px;
+    color:var(--muted);
+  }
+  @media(max-width:600px){
+    .grid{grid-template-columns:1fr}
+    .horse-row{
+      grid-template-columns:68px 68px 1fr 38px;
+      gap:6px;
+    }
+    .number{
+      height:42px;
+      font-size:16px;
+    }
+  }
+.safari-note{
+  margin: 10px auto 0;
+  max-width: 760px;
+  padding: 8px 12px;
+  font-size: 12px;
+  color: #555;
+  background: #f5f5f5;
+  border-radius: 10px;
+  text-align: center;
+}
+
+/* v1.2: racing-card inspired visual refresh */
+:root{--bg:#eef1f4;--card:#fff;--text:#182433;--muted:#697586;--line:#d8dee6;--accent:#173b32;--gold:#c8a45d}
+body{background:linear-gradient(180deg,#e8edf0 0,#f4f5f3 320px);color:var(--text)}
+.wrap{max-width:720px;padding:18px 14px 34px}
+h1{font-size:24px;letter-spacing:.02em;margin:12px 4px 18px;padding:18px 16px;background:#173b32;color:#fff;border-radius:16px;border-bottom:4px solid var(--gold);box-shadow:0 5px 16px #14251d20}
+h1 span{display:inline-block;background:#ffffff20;color:#f2dcae!important;border-radius:20px;padding:4px 9px;margin-left:5px;vertical-align:middle}
+.card{border:1px solid #d6dce2;border-radius:16px;padding:18px;margin-bottom:14px;box-shadow:0 4px 14px #1b2a3810}
+h2{font-size:17px;font-weight:800;letter-spacing:.04em;margin:0 0 15px;padding:0 0 10px;border-bottom:2px solid #e8e2d5;color:#173b32}
+.grid{grid-template-columns:repeat(2,minmax(0,1fr));gap:13px 12px}
+label{font-size:12px;font-weight:700;letter-spacing:.03em;color:#687486;margin:0 0 6px 2px}
+input,select,textarea,button{border-radius:11px;border-color:#cbd3dc;padding:12px;font-size:15px;min-height:46px}
+input:focus,select:focus,textarea:focus{outline:2px solid #8aa99d;outline-offset:1px;border-color:#477663}
+#raceName{font-weight:700;font-size:17px}
+#grade{font-weight:800}
+#grade.grade-g1{background:#2459a6;color:#fff;border-color:#1c4786}
+#grade.grade-g2{background:#b93636;color:#fff;border-color:#962929}
+#grade.grade-g3{background:#287a4c;color:#fff;border-color:#1f633d}
+.waku-note{background:#f5f7f5;border:1px dashed #b8c7bd;border-radius:11px;font-size:12px;line-height:1.65;margin-top:13px;padding:11px 13px}
+.hint{font-size:12px;line-height:1.65;margin:-3px 0 13px}
+.horse-header{grid-template-columns:62px 62px minmax(0,1fr) 34px;gap:7px;margin:0 0 7px;padding:0 3px;font-size:11px}
+.horse-row{grid-template-columns:62px 62px minmax(0,1fr) 34px;gap:7px;margin:0 0 8px;padding:7px;background:#f6f7f6;border:1px solid #e1e6e2;border-radius:12px}
+.horse-row .mark,.horse-row .number,.horse-row .name{min-height:44px;height:44px;font-size:15px}
+.horse-row .mark{text-align:center;text-align-last:center;font-weight:800;padding:7px 2px;background:#fffdf8}
+.horse-row .name{font-weight:600;min-width:0}
+.number{height:44px;border-radius:9px;text-align:center;font-weight:900;font-size:17px;border:2px solid #aab3bd;background:#e5e7eb;padding:5px}
+.horse-row button{min-height:40px;height:40px;padding:0;background:#fff;color:#a33b3b;border:1px solid #e4caca;font-size:20px;font-weight:500;border-radius:9px}
+.add-btn,.save-btn{background:#173b32;color:#fff;border:0;font-weight:800;box-shadow:0 3px 8px #173b3220}
+.add-btn{margin-top:10px}
+.sub-btn{margin-top:8px;background:#f4f5f2;color:#33443b;border:1px solid #cfd8d1;font-weight:700}
+.actions{gap:10px;margin:2px 0 10px}
+textarea{min-height:145px;line-height:1.65;background:#fffdf9}
+.safari-note{background:#e4ebe6;color:#456052;border-radius:9px;font-weight:600;margin:10px 14px 0}
+@media(max-width:600px){
+ .wrap{padding:12px 12px 28px}
+ .grid{grid-template-columns:repeat(2,minmax(0,1fr))}
+ .grid>div[style*="grid-column"]{grid-column:1/-1!important}
+ .horse-row{grid-template-columns:58px 58px minmax(0,1fr) 32px;gap:5px;padding:6px}
+ .horse-header{grid-template-columns:58px 58px minmax(0,1fr) 32px;gap:5px}
+ .horse-row .mark,.horse-row .number,.horse-row .name{font-size:14px;min-height:43px;height:43px}
+ .horse-row button{min-height:39px;height:39px}
+ h1{font-size:21px;padding:16px 13px}
+}
+
+</style>
+</head>
+<body>
+<div class="safari-note">Safariで開いて使用してください。ホーム画面に追加するとアプリのように使えます。</div>
+<div class="wrap">
+  <h1>競馬予想テンプレート <span style='font-size:12px;color:#6b7280'>v1.2</span></h1>
+
+  <section class="card">
+    <h2>レース情報</h2>
+    <div class="grid">
+      <div style="grid-column:1/-1">
+        <label>レース名</label>
+        <input id="raceName" type="text" placeholder="例：中京記念">
+      </div>
+      <div>
+        <label>レースのグレード</label>
+        <select id="grade" onchange="updateGradeColor()">
+          <option value="">選択</option>
+          <option value="GⅠ">GⅠ</option>
+          <option value="GⅡ">GⅡ</option>
+          <option value="GⅢ">GⅢ</option>
+        </select>
+      </div>
+
+      <div>
+        <label>競馬場</label>
+        <select id="track">
+          <option value="">選択</option>
+          <option>札幌</option>
+          <option>函館</option>
+          <option>福島</option>
+          <option>新潟</option>
+          <option>東京</option>
+          <option>中山</option>
+          <option>中京</option>
+          <option>京都</option>
+          <option>阪神</option>
+          <option>小倉</option>
+        </select>
+      </div>
+
+      <div>
+        <label>距離（m）</label>
+        <input id="distance" type="number" placeholder="例：1600">
+      </div>
+
+      <div>
+        <label>芝 / ダート</label>
+        <select id="surface">
+          <option value="">選択</option>
+          <option>芝</option>
+          <option>ダート</option>
+        </select>
+      </div>
+
+      <div>
+        <label>頭数</label>
+        <input id="fieldSize" type="number" min="1" max="18" placeholder="例：18" oninput="refreshAllColors()">
+      </div>
+    </div>
+
+    <div class="waku-note">
+      頭数と馬番から枠番を自動判定します。JRAの枠色に合わせて、馬番欄の色が自動で変わります。
+    </div>
+  </section>
+
+  <section class="card">
+    <h2>出走馬・予想印</h2>
+    <div class="hint">印・馬番・馬名を入力してください。最初に5頭分の入力欄を縦に表示します。「印 ｜ 馬番 ｜ 馬名」を1頭ずつ横一列で入力でき、必要に応じて下のボタンから追加できます。</div>
+    <div class="horse-header">
+      <div>印</div>
+      <div>馬番</div>
+      <div class="horse-name-head">馬名</div>
+      <div></div>
+    </div>
+    <div id="horses">
+
+      <div class="horse-row">
+        <select class="mark" aria-label="印">
+          <option value="">印</option>
+          <option>◎</option>
+          <option>〇</option>
+          <option>▲</option>
+          <option>△</option>
+          <option>☆</option>
+          <option>✓</option>
+        </select>
+        <input class="number" type="number" min="1" max="18" placeholder="馬番" aria-label="馬番">
+        <input class="name" type="text" placeholder="馬名" aria-label="馬名">
+        <button type="button" aria-label="削除" >×</button>
+      </div>
+
+      <div class="horse-row">
+        <select class="mark" aria-label="印">
+          <option value="">印</option>
+          <option>◎</option>
+          <option>〇</option>
+          <option>▲</option>
+          <option>△</option>
+          <option>☆</option>
+          <option>✓</option>
+        </select>
+        <input class="number" type="number" min="1" max="18" placeholder="馬番" aria-label="馬番">
+        <input class="name" type="text" placeholder="馬名" aria-label="馬名">
+        <button type="button" aria-label="削除" >×</button>
+      </div>
+
+      <div class="horse-row">
+        <select class="mark" aria-label="印">
+          <option value="">印</option>
+          <option>◎</option>
+          <option>〇</option>
+          <option>▲</option>
+          <option>△</option>
+          <option>☆</option>
+          <option>✓</option>
+        </select>
+        <input class="number" type="number" min="1" max="18" placeholder="馬番" aria-label="馬番">
+        <input class="name" type="text" placeholder="馬名" aria-label="馬名">
+        <button type="button" aria-label="削除" >×</button>
+      </div>
+
+      <div class="horse-row">
+        <select class="mark" aria-label="印">
+          <option value="">印</option>
+          <option>◎</option>
+          <option>〇</option>
+          <option>▲</option>
+          <option>△</option>
+          <option>☆</option>
+          <option>✓</option>
+        </select>
+        <input class="number" type="number" min="1" max="18" placeholder="馬番" aria-label="馬番">
+        <input class="name" type="text" placeholder="馬名" aria-label="馬名">
+        <button type="button" aria-label="削除" >×</button>
+      </div>
+
+      <div class="horse-row">
+        <select class="mark" aria-label="印">
+          <option value="">印</option>
+          <option>◎</option>
+          <option>〇</option>
+          <option>▲</option>
+          <option>△</option>
+          <option>☆</option>
+          <option>✓</option>
+        </select>
+        <input class="number" type="number" min="1" max="18" placeholder="馬番" aria-label="馬番">
+        <input class="name" type="text" placeholder="馬名" aria-label="馬名">
+        <button type="button" aria-label="削除" >×</button>
+      </div>
+
+    </div>
+
+    <button class="add-btn" onclick="addHorse()">＋ 入力枠を追加</button>
+  </section>
+
+  <section class="card">
+    <h2>予想メモ</h2>
+    <textarea id="memo" placeholder="レースの見立て、気になる馬、買い方など自由に記入"></textarea>
+  </section>
+
+  <div class="actions">
+    <button class="save-btn" onclick="saveData()">保存</button>
+    <button class="sub-btn" onclick="loadData()">復元</button>
+  </div>
+</div>
+
+<script>
+const WAKU_COLORS = {
+  1: { bg:'#ffffff', text:'#111111', border:'#9ca3af' },
+  2: { bg:'#111111', text:'#ffffff', border:'#111111' },
+  3: { bg:'#ef4444', text:'#ffffff', border:'#dc2626' },
+  4: { bg:'#2563eb', text:'#ffffff', border:'#1d4ed8' },
+  5: { bg:'#facc15', text:'#111111', border:'#eab308' },
+  6: { bg:'#16a34a', text:'#ffffff', border:'#15803d' },
+  7: { bg:'#f97316', text:'#111111', border:'#ea580c' },
+  8: { bg:'#f9a8d4', text:'#111111', border:'#f472b6' }
+};
+
+// JRAの一般的な枠順ルールに合わせ、少頭数では1枠から順に1頭ずつ。
+// 9頭以上は後ろの枠から複数頭を入れて8枠に収める。
+function getWaku(fieldSize, horseNumber){
+  fieldSize = Number(fieldSize);
+  horseNumber = Number(horseNumber);
+
+  if(!Number.isInteger(fieldSize) || fieldSize < 1 || fieldSize > 18 ||
+     !Number.isInteger(horseNumber) || horseNumber < 1 || horseNumber > fieldSize){
+    return null;
+  }
+
+  // JRAの枠番配置を頭数ごとに作成。
+  // 9〜15頭は前方の少数枠を1頭、その後を2頭ずつ。
+  // 16頭は2頭ずつ、17頭は8枠のみ3頭、18頭は7・8枠が3頭。
+  let counts;
+
+  if(fieldSize <= 8){
+    counts = Array(fieldSize).fill(1);
+  } else if(fieldSize <= 15){
+    const singleFrames = 16 - fieldSize;
+    counts = Array(singleFrames).fill(1);
+    while(counts.length < 8) counts.push(2);
+  } else if(fieldSize === 16){
+    counts = Array(8).fill(2);
+  } else if(fieldSize === 17){
+    counts = [2,2,2,2,2,2,2,3];
+  } else {
+    counts = [2,2,2,2,2,2,3,3];
+  }
+
+  let current = 1;
+  for(let frame = 1; frame <= counts.length; frame++){
+    const last = current + counts[frame - 1] - 1;
+    if(horseNumber >= current && horseNumber <= last) return frame;
+    current = last + 1;
+  }
+  return null;
+}
+
+function updateHorseColor(row){
+  const fieldSize = Number(document.getElementById('fieldSize').value);
+  const input = row.querySelector('.number');
+  const horseNumber = Number(input.value);
+  const waku = getWaku(fieldSize, horseNumber);
+
+  if(!waku){
+    input.style.background = '#e5e7eb';
+    input.style.color = '#111827';
+    input.style.borderColor = '#9ca3af';
+    input.title = '頭数と馬番を入力してください';
+    return;
+  }
+
+  const c = WAKU_COLORS[waku];
+  input.style.background = c.bg;
+  input.style.color = c.text;
+  input.style.borderColor = c.border;
+  input.title = `${waku}枠`;
+}
+
+function refreshAllColors(){
+  document.querySelectorAll('.horse-row').forEach(updateHorseColor);
+}
+
+function addHorse(data = {}){
+  const row = document.createElement('div');
+  row.className = 'horse-row';
+  row.innerHTML = `
+    <select class="mark" aria-label="印">
+      <option value="">印</option>
+      <option>◎</option>
+      <option>〇</option>
+      <option>▲</option>
+      <option>△</option>
+      <option>☆</option>
+      <option>✓</option>
+    </select>
+
+    <input class="number" type="number" min="1" max="18" placeholder="馬番" aria-label="馬番" >
+
+    <input class="name" type="text" placeholder="馬名" aria-label="馬名">
+
+    <button aria-label="削除" >×</button>
+  `;
+
+  document.getElementById('horses').appendChild(row);
+
+  row.querySelector('.number').addEventListener('input', () => updateHorseColor(row));
+  row.querySelector('button').addEventListener('click', () => row.remove());
+
+  if(data.mark) row.querySelector('.mark').value = data.mark;
+  if(data.number) row.querySelector('.number').value = data.number;
+  if(data.name) row.querySelector('.name').value = data.name;
+
+  updateHorseColor(row);
+}
+
+function updateGradeColor(){
+  const el = document.getElementById('grade');
+  el.classList.remove('grade-g1','grade-g2','grade-g3');
+  if(el.value === 'GⅠ') el.classList.add('grade-g1');
+  if(el.value === 'GⅡ') el.classList.add('grade-g2');
+  if(el.value === 'GⅢ') el.classList.add('grade-g3');
+}
+
+function saveData(){
+  const data = {
+    raceName: document.getElementById('raceName').value,
+    grade: document.getElementById('grade').value,
+    track: document.getElementById('track').value,
+    distance: document.getElementById('distance').value,
+    surface: document.getElementById('surface').value,
+    fieldSize: document.getElementById('fieldSize').value,
+    memo: document.getElementById('memo').value,
+    horses: [...document.querySelectorAll('.horse-row')].map(row => ({
+      mark: row.querySelector('.mark').value,
+      number: row.querySelector('.number').value,
+      name: row.querySelector('.name').value
+    }))
+  };
+
+  localStorage.setItem('simpleHorseTemplateColored', JSON.stringify(data));
+  alert('保存しました。');
+}
+
+function loadData(){
+  const raw = localStorage.getItem('simpleHorseTemplateColored');
+
+  if(!raw){
+    alert('保存データがありません。');
+    return;
+  }
+
+  const data = JSON.parse(raw);
+
+  document.getElementById('raceName').value = data.raceName || '';
+  document.getElementById('grade').value = data.grade || '';
+  updateGradeColor();
+  document.getElementById('track').value = data.track || '';
+  document.getElementById('distance').value = data.distance || '';
+  document.getElementById('surface').value = data.surface || '';
+  document.getElementById('fieldSize').value = data.fieldSize || '';
+  document.getElementById('memo').value = data.memo || '';
+
+  document.getElementById('horses').innerHTML = '';
+  (data.horses || []).forEach(addHorse);
+
+  refreshAllColors();
+}
+
+
+document.querySelectorAll('.horse-row').forEach(row => {
+  row.querySelector('.number').addEventListener('input', () => updateHorseColor(row));
+  row.querySelector('button').addEventListener('click', () => row.remove());
+});
+refreshAllColors();
+
+</script>
+</body>
+</html>
