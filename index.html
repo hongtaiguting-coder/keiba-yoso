@@ -10,7 +10,7 @@
 :root{color-scheme:light;--ink:#151515;--line:#aaa}
 *{box-sizing:border-box}[hidden]{display:none!important}body{margin:0;background:#eee;color:var(--ink);font-family:-apple-system,BlinkMacSystemFont,"Yu Gothic","Hiragino Kaku Gothic ProN",Meiryo,sans-serif}
 main{max-width:850px;margin:auto;background:white;padding:20px}header{border-top:6px solid black;border-bottom:3px double black;padding:14px 0;margin-bottom:20px}h1{margin:0;font-size:26px}header small{font-size:13px;font-weight:400}h2{font-size:17px;border-bottom:2px solid black;padding:10px 0;margin:16px 0 12px}p{line-height:1.7}.hint{font-size:12px;color:#555;margin:8px 0 14px}
-.race-grid{display:grid;grid-template-columns:repeat(4,minmax(0,1fr));gap:12px 10px}.race-title{grid-column:1/-1}label{display:block;font-size:12px;font-weight:bold;margin-bottom:5px}input,select,textarea,button{font:inherit;color:inherit;border:1px solid #999;border-radius:2px;background:#fff;min-width:0;min-height:44px;padding:8px;width:100%}input,select,textarea{font-size:16px}input:focus-visible,select:focus-visible,textarea:focus-visible,button:focus-visible,a:focus-visible{outline:3px solid #2269b0;outline-offset:2px}#raceName{font-size:23px;font-weight:bold}button{cursor:pointer;font-weight:bold}button:disabled{cursor:wait;opacity:.55}.primary{background:#111;color:white;border-color:black}.grade-g1{background:#065bb5;color:white}.grade-g2{background:#da1010;color:white}.grade-g3{background:#168341;color:white}
+.race-grid{display:grid;grid-template-columns:repeat(4,minmax(0,1fr));gap:12px 10px}.race-title{grid-column:1/-1}label{display:block;font-size:12px;font-weight:bold;margin-bottom:5px}input,select,textarea,button{font:inherit;color:inherit;border:1px solid #999;border-radius:2px;background:#fff;min-width:0;min-height:44px;padding:8px;width:100%}input,select,textarea{font-size:16px}input:focus-visible,select:focus-visible,textarea:focus-visible,button:focus-visible,a:focus-visible{outline:3px solid #2269b0;outline-offset:2px}#raceName{font-size:23px;font-weight:bold}button{cursor:pointer;font-weight:bold}button:disabled{cursor:wait;opacity:.55}.primary{background:#111;color:white;border-color:black}.grade-g1{background:#065bb5;color:white}.grade-g2{background:#da1010;color:white}.grade-g3{background:#168341;color:white}.grade-local{background:#f39800;color:white}
 .horse-header,.horse-row{display:grid;grid-template-columns:58px 38px 60px minmax(0,1fr) 36px;align-items:center;gap:5px}.horse-header{background:#eee;border-block:1px solid black;text-align:center;font-size:12px;padding:7px 5px}.horse-row{border-bottom:1px solid #aaa;padding:6px 5px}.mark{font-size:23px;font-weight:900;padding:3px;text-align:center}.number{text-align:center;padding:4px}.waku{display:flex;align-items:center;justify-content:center;min-height:44px;border:1px solid #888;font-weight:bold}.remove{padding:0;font-size:22px;color:#9b1414}.toolbar{display:flex;gap:8px;margin:12px 0;flex-wrap:wrap}.toolbar>*{flex:1;min-width:120px}textarea{min-height:130px;line-height:1.7;resize:vertical}.status{font-size:13px;white-space:pre-wrap;line-height:1.6}.status.error{color:#ae1010}
 #previewCanvas{width:100%;height:auto;display:block;border:1px solid #222}#previewSection{margin-top:22px}#previewDescription{font-size:13px}details{font-size:13px;margin-top:10px}#accessiblePreview{overflow-wrap:anywhere;white-space:pre-wrap}.save-panel{border:1px solid #aaa;padding:12px;margin-top:12px}.save-panel[hidden]{display:none}.save-panel img{display:block;width:100%;height:auto;margin-top:12px}.download{display:block;color:#111;text-align:center;padding:12px;border:1px solid black;text-decoration:none;font-weight:bold}.view-link{display:inline-block;margin-top:12px;color:#174e8a}footer{margin-top:22px;border-top:3px double black;padding-top:12px;font-size:12px;color:#666}
 @media(max-width:600px){main{padding:12px 8px}h1{font-size:22px}.race-grid{grid-template-columns:repeat(2,minmax(0,1fr))}.horse-header,.horse-row{grid-template-columns:48px 30px 49px minmax(0,1fr) 30px;gap:3px;padding-inline:2px}.horse-row .name{padding:7px 4px}.mark{font-size:21px}#raceName{font-size:20px}}
@@ -27,16 +27,16 @@ main{max-width:850px;margin:auto;background:white;padding:20px}header{border-top
 </head>
 <body>
 <main>
-<header><h1>競馬予想 <small>v1.5</small></h1></header>
+<header><h1>競馬予想 <small>v1.6</small></h1></header>
 <section aria-labelledby="raceHeading"><h2 id="raceHeading">レース情報</h2>
 <div class="race-grid">
 <div class="race-title"><label for="raceName">レース名</label><input id="raceName" placeholder="例：JBCクラシック"></div>
-<div><label for="grade">グレード</label><select id="grade"><option value="">選択</option><option>GⅠ</option><option>GⅡ</option><option>GⅢ</option></select></div>
-<div><label for="track">競馬場</label><select id="track"><option value="">選択</option><option>札幌</option><option>函館</option><option>福島</option><option>新潟</option><option>東京</option><option>中山</option><option>中京</option><option>京都</option><option>阪神</option><option>小倉</option></select></div>
+<div><label for="grade">グレード</label><select id="grade"><option value="">選択</option><option>GⅠ</option><option>GⅡ</option><option>GⅢ</option><option>Jpn1</option><option>Jpn2</option><option>Jpn3</option><option value="G">G（地方重賞）</option></select></div>
+<div><label for="track">競馬場</label><select id="track"><option value="">選択</option><optgroup label="中央競馬場"><option>札幌</option><option>函館</option><option>福島</option><option>新潟</option><option>東京</option><option>中山</option><option>中京</option><option>京都</option><option>阪神</option><option>小倉</option></optgroup><optgroup label="地方競馬場"><option>門別競馬場</option><option>盛岡競馬場</option><option>水沢競馬場</option><option>浦和競馬場</option><option>船橋競馬場</option><option>大井競馬場</option><option>川崎競馬場</option><option>金沢競馬場</option><option>笠松競馬場</option><option>名古屋競馬場</option><option>園田競馬場</option><option>姫路競馬場</option><option>高知競馬場</option><option>佐賀競馬場</option></optgroup></select></div>
 <div><label for="distance">距離（m）</label><input id="distance" type="number" min="1" step="1" inputmode="numeric" placeholder="1600"></div>
 <div><label for="surface">芝／ダート</label><select id="surface"><option value="">選択</option><option>芝</option><option>ダート</option></select></div>
 <div><label for="fieldSize">頭数</label><input id="fieldSize" type="number" min="1" max="18" step="1" inputmode="numeric" placeholder="18"></div>
-</div><p class="hint">枠は頭数・馬番から自動計算します。出走取消などで実際の出走頭数が変わった場合も、枠順確定時の頭数を入力してください。</p></section>
+</div><p class="hint">枠は頭数・馬番からJRA方式で自動計算します。地方競馬では実際の枠順と異なる場合があるため、主催者の発表をご確認ください。出走取消などで実際の出走頭数が変わった場合も、枠順確定時の頭数を入力してください。</p></section>
 <section aria-labelledby="runnersHeading"><h2 id="runnersHeading">全出走馬の出馬表・入力</h2>
 <p class="hint">頭数を入力して欄を移動すると、馬番1〜頭数の入力欄を作成します。馬名はこちらで入力してください。印馬予想表にも自動反映されます。性別・斤量・騎手は未入力でもプレビューできます。斤量の初期値は牡・セ58.0kg／牝56.0kgです。アプリの初期値なので、実際の競走条件に合わせて変更してください。評価はすべて空欄から選べます。</p>
 <div id="runners"><p class="hint">先に頭数を入力してください。</p></div>
@@ -76,6 +76,18 @@ const MARKS = ['','◎','〇','▲','△','☆','✓'];
 const RATING_MARKS = ['','◎','〇','▲','△','☆'];
 const RATING_FIELDS = [['ability','能力'],['frame','枠'],['pace','予想ペース'],['style','脚質'],['tb','TB'],['course','コース適性']];
 const PREDICTION_PRIORITY = ['◎','〇','▲','△','☆','✓',''];
+// Store the original option values for backward-compatible localStorage data.
+// Keep the existing input and image colors for the three JRA grades.
+const GRADE_STYLES = {
+  'GⅠ':{label:'GⅠ',className:'grade-g1',imageColor:'#0068b7'},
+  'GⅡ':{label:'GⅡ',className:'grade-g2',imageColor:'#d00000'},
+  'GⅢ':{label:'GⅢ',className:'grade-g3',imageColor:'#008542'},
+  Jpn1:{label:'JpnⅠ',className:'grade-g1',imageColor:'#0068b7'},
+  Jpn2:{label:'JpnⅡ',className:'grade-g2',imageColor:'#d00000'},
+  Jpn3:{label:'JpnⅢ',className:'grade-g3',imageColor:'#008542'},
+  G:{label:'G',className:'grade-local',imageColor:'#f39800'}
+};
+const gradeLabel = value => GRADE_STYLES[value]?.label || value;
 const DEFAULT_WEIGHTS = {'牡':'58.0','牝':'56.0','セ':'58.0'};
 const WAKU_COLORS = {
   1:{bg:'#ffffff',text:'#111111'},2:{bg:'#111111',text:'#ffffff'},
@@ -83,7 +95,7 @@ const WAKU_COLORS = {
   5:{bg:'#fff100',text:'#111111'},6:{bg:'#009944',text:'#ffffff'},
   7:{bg:'#f39800',text:'#111111'},8:{bg:'#f6b7cf',text:'#111111'}
 };
-const FONT = '"Hiragino Kaku Gothic ProN", "Yu Gothic", Meiryo, sans-serif';
+const FONT = '"Hiragino Kaku Gothic ProN", "Yu Gothic", Meiryo, "Noto Sans CJK JP", sans-serif';
 const $ = id => document.getElementById(id);
 let runners = [], appliedSize = 0, renderGeneration = 0;
 const previews = {
@@ -91,7 +103,13 @@ const previews = {
   full:{canvas:'fullPreviewCanvas',description:'fullPreviewDescription',text:'fullPreviewText',content:'fullAccessiblePreview',panel:'fullSavePanel',download:'fullDownloadImage',open:'fullOpenImage',image:'fullSavedImage',button:'exportFullImage',show:'showFullPreview'}
 };
 function notify(message, error=false){$('status').textContent=message;$('status').classList.toggle('error',error);}
-function getWaku(fieldSize, horseNumber){
+// Venue-specific rules can be registered here once confirmed by the organizer.
+// All venues currently retain the existing JRA allocation, including 17/18 runners.
+const FRAME_RULES = {default:getJraWaku};
+function getWaku(fieldSize, horseNumber, track=$('track').value){
+  return (FRAME_RULES[track]||FRAME_RULES.default)(fieldSize,horseNumber);
+}
+function getJraWaku(fieldSize, horseNumber){
   fieldSize=Number(fieldSize);horseNumber=Number(horseNumber);
   if(!Number.isInteger(fieldSize)||fieldSize<1||fieldSize>18||!Number.isInteger(horseNumber)||horseNumber<1||horseNumber>fieldSize)return null;
   let counts;
@@ -110,7 +128,7 @@ function updateHorseColor(row){
   row.querySelector('.number').max=$('fieldSize').value||18;
 }
 function refreshAllColors(){document.querySelectorAll('.horse-row').forEach(updateHorseColor);}
-function updateGradeColor(){const el=$('grade');el.className='';const n=['GⅠ','GⅡ','GⅢ'].indexOf(el.value);if(n>=0)el.classList.add(`grade-g${n+1}`);}
+function updateGradeColor(){const el=$('grade');el.className='';const style=GRADE_STYLES[el.value];if(style)el.classList.add(style.className);}
 function invalidate(){
   renderGeneration++;
   Object.values(previews).forEach(state=>{
@@ -211,7 +229,7 @@ function addHorse(data={}){
   $('horses').append(row);syncPredictions();invalidate();
 }
 function readData(){
-  const data={version:'1.5'};FIELDS.forEach(id=>data[id]=$(id).value);
+  const data={version:'1.6'};FIELDS.forEach(id=>data[id]=$(id).value);
   data.runners=runners.map(h=>({...h,ratings:{...h.ratings}}));
   data.horses=[...document.querySelectorAll('.horse-row')].map(row=>({mark:row.querySelector('.mark').value,number:row.querySelector('.number').value,name:row.querySelector('.name').value}));return data;
 }
@@ -265,9 +283,9 @@ function prepareData(data,mode='prediction'){
   }else{
     horses=data.horses.filter(h=>h.mark||h.number);
     if(!horses.length)throw Error('馬番を1頭以上選択してください。');
-    const seen=new Set();horses.forEach((h,i)=>{const n=Number(h.number);if(!getWaku(size,n))throw Error(`${i+1}行目の馬番を選択してください。`);if(seen.has(n))throw Error(`馬番${n}が重複しています。`);if(!h.name.trim())throw Error(`全出走馬の出馬表に${n}番の馬名を入力してください。`);seen.add(n);});
+    const seen=new Set();horses.forEach((h,i)=>{const n=Number(h.number);if(!getWaku(size,n,data.track))throw Error(`${i+1}行目の馬番を選択してください。`);if(seen.has(n))throw Error(`馬番${n}が重複しています。`);if(!h.name.trim())throw Error(`全出走馬の出馬表に${n}番の馬名を入力してください。`);seen.add(n);});
   }
-  const ordered=horses.map(h=>({...h,number:Number(h.number),waku:getWaku(size,h.number)}));
+  const ordered=horses.map(h=>({...h,number:Number(h.number),waku:getWaku(size,h.number,data.track)}));
   // Canvas draws left to right. Reverse priority and number so the best / smallest is on the right.
   ordered.sort(mode==='full'?(a,b)=>b.number-a.number:(a,b)=>PREDICTION_PRIORITY.indexOf(b.mark)-PREDICTION_PRIORITY.indexOf(a.mark)||b.number-a.number);
   return {...data,horses:ordered};
@@ -300,7 +318,7 @@ function renderCard(data,mode='prediction'){
   const text=(s,x,y,size=22,color='#111',bold=false)=>{ctx.font=`${bold?'bold ':''}${size}px ${FONT}`;ctx.fillStyle=color;ctx.textAlign='center';ctx.fillText(s,x,y);};
   const titleH=titleLines.length*42+12;rect(pad,pad,tableW,titleH,'#050505');
   titleLines.forEach((s,i)=>text(s,pad+(tableW-100)/2,pad+27+i*42,30,'#fff',true));
-  if(data.grade){const color={'GⅠ':'#0068b7','GⅡ':'#d00000','GⅢ':'#008542'}[data.grade]||'#333';rect(width-pad-92,pad+8,84,36,color);text(data.grade,width-pad-50,pad+26,25,'#fff',true);}
+  if(data.grade){const style=GRADE_STYLES[data.grade];rect(width-pad-92,pad+8,84,36,style?.imageColor||'#333');text(gradeLabel(data.grade),width-pad-50,pad+26,25,'#fff',true);}
   infoLines.forEach((s,i)=>text(s,width/2,pad+titleH+25+i*30,20));
   data.horses.forEach((horse,i)=>{
     const x=pad+i*horseW,c=WAKU_COLORS[horse.waku];
@@ -337,7 +355,7 @@ async function buildPreview(mode='prediction'){
   if(generation!==renderGeneration)throw Error('入力が変更されました。もう一度生成してください。');
   const target=$(state.canvas);target.width=source.width;target.height=source.height;target.getContext('2d').drawImage(source,0,0);target.hidden=false;
   $(state.description).textContent=`${data.horses.length}頭掲載 ／ PNG ${source.width} × ${source.height}px`;
-  $(state.content).textContent=`${data.raceName} ${data.grade}\n${data.track} ${data.surface} ${data.distance}m ${data.fieldSize}頭\n`+data.horses.map(h=>`${h.waku}枠 ${h.number}番 ${mode==='full'?`${sexAgeText(h)} ${h.weight||'—'}kg ${h.jockey||'—'} ${RATING_FIELDS.map(([key,title])=>`${title}：${h.ratings[key]||'無印'}`).join(' ')}`:h.mark} ${h.name}`).join('\n')+`\n予想コメント\n${data.memo}`;$(state.text).hidden=false;
+  $(state.content).textContent=`${data.raceName} ${gradeLabel(data.grade)}\n${data.track} ${data.surface} ${data.distance}m ${data.fieldSize}頭\n`+data.horses.map(h=>`${h.waku}枠 ${h.number}番 ${mode==='full'?`${sexAgeText(h)} ${h.weight||'—'}kg ${h.jockey||'—'} ${RATING_FIELDS.map(([key,title])=>`${title}：${h.ratings[key]||'無印'}`).join(' ')}`:h.mark} ${h.name}`).join('\n')+`\n予想コメント\n${data.memo}`;$(state.text).hidden=false;
   if(state.url)URL.revokeObjectURL(state.url);state.url=URL.createObjectURL(blob);
   const filename=(data.raceName.trim()||'競馬予想').replace(/[\\/:*?"<>|\u0000-\u001f]/g,'_').slice(0,60)+(mode==='full'?'_全出走馬':'_印馬予想')+'.png';
   state.file=new File([blob],filename,{type:'image/png'});$(state.download).href=state.url;$(state.download).download=filename;$(state.open).href=state.url;$(state.image).src=state.url;
